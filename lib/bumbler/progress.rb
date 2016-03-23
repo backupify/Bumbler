@@ -56,6 +56,8 @@ module Bumbler
       end
 
       def render_progress
+        return
+
         # Do nothing if we don't have any items to load
         return if @item_count == 0
 
@@ -64,30 +66,30 @@ module Bumbler
         #   (##/##) <current>...   <prev> (####.##ms)
         #
         # Skip the current if there isn't enough room
-        count   = '(%s/%d) ' % [@loaded_items.to_s.rjust(@item_count.to_s.size), @item_count]
-        current = @curr_item ? "#{@curr_item[:name]}... " : ''
-        prev    = @prev_item ? '%s (%sms)' % [@prev_item[:name], ('%.2f' % @prev_item[:time]).rjust(7)] : ''
+        #count   = '(%s/%d) ' % [@loaded_items.to_s.rjust(@item_count.to_s.size), @item_count]
+        #current = @curr_item ? "#{@curr_item[:name]}... " : ''
+        #prev    = @prev_item ? '%s (%sms)' % [@prev_item[:name], ('%.2f' % @prev_item[:time]).rjust(7)] : ''
 
-        if $stdout.tty?
-          width = self.tty_width
+        #if $stdout.tty?
+          #width = self.tty_width
 
-          print "\r\e[A\r\e[A" if @outputted_once
-          @outputted_once = true
+          #print "\r\e[A\r\e[A" if @outputted_once
+          #@outputted_once = true
 
-          # Align the bottom row
-          space_for_current = width - (count.length + prev.length)
+          ## Align the bottom row
+          #space_for_current = width - (count.length + prev.length)
 
-          # Render the progress
-          puts self.bar(width)
+          ## Render the progress
+          #puts self.bar(width)
 
-          if space_for_current >= current.length
-            puts count + current + prev.rjust(width - count.length - current.length)
-          else
-            puts count + prev.rjust(width - count.length)
-          end
-        elsif @curr_item
-          puts '%s %s' % [count, @curr_item[:name]]
-        end
+          #if space_for_current >= current.length
+            #puts count + current + prev.rjust(width - count.length - current.length)
+          #else
+            #puts count + prev.rjust(width - count.length)
+          #end
+        #elsif @curr_item
+          #puts '%s %s' % [count, @curr_item[:name]]
+        #end
       end
     end
   end
